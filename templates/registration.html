@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registration | Strel</title>
+  <style>
+    body{
+    background-color: #525252;
+}
+.centered-form{
+  margin-top: 60px;
+}
+
+.centered-form .panel{
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+  </style>
+</head>
+<body>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Please sign up for someone special. <br><small>It's free!</small></h3>
+            </div>
+            <div class="panel-body">
+              <form role="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" required>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="number" name="mobile1" id="mobile1" class="form-control input-sm" placeholder="Mobile Number" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="number" name="mobile2" id="mobile2" class="form-control input-sm" placeholder="WhatsApp Number (eg. 7070750122)" required>
+                </div>
+
+
+                <div class="form-group">
+                  <input type="text" name="address" id="address" class="form-control input-sm" placeholder="Address" required> 
+                </div>
+
+
+                   <div class="form-group">
+                  <input type="number" name="adn" id="adn" class="form-control input-sm" placeholder="Aadhaar Number" min="100000000000" max="999999999999" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" name="facebook" id="facebook" class="form-control input-sm" placeholder="Facebook (Username only}" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" name="instagram" id="instagram" class="form-control input-sm" placeholder="Instagram Username (Username only)" required>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" name="linkedin" id="linkedin" class="form-control input-sm" placeholder="LinkedIn Username (Username only)" required>
+                </div>
+                <div>
+       {% if messages %}
+        {% for message in messages %}
+        <span>{{ message.message }}</span>
+        {% endfor %}
+        {% endif %}
+        </div>
+
+                <div class="form-group">
+                 <select class="form-control input-sm" id="gender" name="gender" required>
+                <option class="form-control input-sm" value="not_selected" selected>Gender</option>
+                <option class="form-control input-sm" value="male">Male</option>
+                <option class="form-control input-sm" value="female">Female</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-control input-sm">
+                    <span>Select Profile Photo (Square size only please.)</span>
+                  <input type="file" name="pic1" id="pic1" class="form-control input-sm" required>
+                </div>
+                </div>
+
+                <br><br>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" required>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" onkeyup='check();' required>
+                      <span id='message'></span>
+
+                    </div>
+                  </div>
+                </div>
+                
+                <input type="submit" value="Register" id="submit" class="btn btn-info btn-block">
+              
+              </form>
+
+            </div>
+            <div class="form-group">
+            <button class="form-control input-sm" onclick="window.location.href = '/login';">Already registered?
+    </button>
+                </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript">
+      var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('password_confirmation').value) {
+    document.getElementById("submit").disabled = false;
+
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Password matched!';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Oooops, Password didn\'t match!';
+    document.getElementById("submit").disabled = true;
+  }
+}
+
+
+    </script>
+</body>
+</html>

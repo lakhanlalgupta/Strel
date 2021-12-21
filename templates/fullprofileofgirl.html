@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Full Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+  <style>
+html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
+.w3-bar-block .w3-bar-item {padding: 16px}
+
+blink {
+  -webkit-animation: 1s linear infinite condemned_blink_effect; /* for Safari 4.0 - 8.0 */
+  animation: 1s linear infinite condemned_blink_effect;
+}
+
+/* for Safari 4.0 - 8.0 */
+@-webkit-keyframes condemned_blink_effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes condemned_blink_effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Page content -->
+
+
+
+<div id="Borge" class="w3-container person">
+  <br>
+  <img class="w3-round  w3-animate-top" src="{{fulldata.pic.url}}" style="width:20%;"><br>
+  <h4>Full Name: {{fulldata.user.first_name}} {{fulldata.user.last_name}}</h4>
+  <h4>Address: {{fulldata.address}}</h4>
+  <h4>E-Mail Address: {{fulldata.user.email}}</h4>
+  <h4>Relationship Status: <blink>{{relationship.status}}</blink></h4>
+
+
+  <div class="leftside">
+            <ul class="socialmediaicons">
+              <a href="https://www.facebook.com/{{fulldata.facebook}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-facebook"></i></li></a>
+              <a href="https://www.instagram.com/{{fulldata.instagram}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-instagram"></i></li></a>
+              <a href="https://www.linkedin.com/in/{{fulldata.linkedin}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-linkedin"></i></li></a>
+            </ul>
+       </div>
+
+{% if "Single" in relationship.status or "Trying" in relationship.status %}
+
+  <a class="w3-button w3-light-grey" href="/maleapp/mnextprocess/{{fulldata.id}}">Connect<i class="w3-margin-left fa fa-arrow-right"></i></a>
+  <hr>
+  <span style="color: red;"><blink>If you connect her, we will let you know if she accepts.</blink></span>
+  {% endif %}
+  
+  <hr>
+  </div>
+</div>
+
+<script>
+var openInbox = document.getElementById("myBtn");
+openInbox.click();
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunc(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show"; 
+    x.previousElementSibling.className += " w3-red";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-red", "");
+  }
+}
+
+openMail("Borge")
+function openMail(personName) {
+  var i;
+  var x = document.getElementsByClassName("person");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x = document.getElementsByClassName("test");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" w3-light-grey", "");
+  }
+  document.getElementById(personName).style.display = "block";
+  event.currentTarget.className += " w3-light-grey";
+}
+</script>
+
+<script>
+var openTab = document.getElementById("firstTab");
+openTab.click();
+</script>
+
+</body>
+</html> 

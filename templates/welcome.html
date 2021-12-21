@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Your Property</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif}
+.w3-bar-block .w3-bar-item {padding: 16px}
+
+blink {
+  -webkit-animation: 1s linear infinite condemned_blink_effect; /* for Safari 4.0 - 8.0 */
+  animation: 1s linear infinite condemned_blink_effect;
+}
+
+/* for Safari 4.0 - 8.0 */
+@-webkit-keyframes condemned_blink_effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes condemned_blink_effect {
+  0% {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+</style>
+<style>
+  .float{
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#25d366;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  font-size:30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+  margin-top:16px;
+}
+.button0 {
+  background-color: #873F49; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+.button1 {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+.button2 {
+  background-color: #A52A2A; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button2:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.button1:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.button0:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<style>
+  .btn {
+  background-color: #A52A2A;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: darkred;
+}
+</style>
+<body>
+
+<!-- Page content -->
+
+
+<div id="Borge" class="w3-container person">
+  <br>
+  {% if fulldata.gender == 'male' %}
+
+  <b>Break-Up Request By {{fulldata.user.first_name}} </b><button class="btn" onclick="window.location.href='/femaleapp/brtofemalelist'"><i class="fa fa-bars"></i></button><br><br>
+  {% else %}
+  <b>Break-Up Request By {{fulldata.user.first_name}} </b><button class="btn" onclick="window.location.href='/maleapp/brtomalelist'"><i class="fa fa-bars"></i></button><br><br>
+
+  {% endif %}
+
+  <img class="w3-round  w3-animate-top" src="{{fulldata.pic.url}}" style="width:20%;"><br>
+  <h4>Full Name: {{fulldata.user.first_name}} {{fulldata.user.last_name}}</h4>
+  <h4>Address: {{fulldata.address}}</h4>
+  <h4>Make a Call: <a class="w3-button w3-light-grey" href="tel:{{fulldata.mobile1}}">Call<blink><i class="w3-margin-left fa fa-phone"></i></blink></a></h4>
+  <a href="https://wa.me/91{{fulldata.mobile2}}" class="float" target="_blank">
+<i class="fa fa-whatsapp my-float"></i>
+</a>
+  <h4>E-Mail Address: {{fulldata.user.email}}</h4>
+  <h4>Aadhaar Number: {{fulldata.adn}}</h4>
+  <h4>Relationship Status: <blink>You Love This Perosn</blink></h4>
+  
+  <div class="leftside">
+            <ul class="socialmediaicons">
+              <a href="https://www.facebook.com/{{fulldata.facebook}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-facebook"></i></li></a>
+              <a href="https://www.instagram.com/{{fulldata.instagram}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-instagram"></i></li></a>
+              <a href="https://www.linkedin.com/in/{{fulldata.linkedin}}/" target="_blank" rel="noopener noreferrer"><li><i class="fa fa-linkedin"></i></li></a>
+            </ul>
+       </div>
+       <div>
+       {% if messages %}
+        {% for message in messages %}
+        <span>{{ message.message }}</span>
+        {% endfor %}
+        {% endif %}
+        </div>
+<br>
+      <button class="button button0" onclick="window.location.href='/chat'">Chat</button><br>
+       {% if fulldata.gender == 'male' %}
+<button class="button button1" onclick="window.location.href='/femaleapp/brtomale/{{fulldata.id}}'">Break Up</button><br>
+<button class="button button2" onclick="window.location.href='/femaleapp/superbreakup'">Super Break Up</button>   
+
+    {% else %}
+<button class="button button1" onclick="window.location.href='maleapp/brtofemale/{{fulldata.id}}'">Break Up</button><br>
+<button class="button button2" onclick="window.location.href='/maleapp/superbreakup'">Super Break Up</button>   
+    {% endif %}
+
+  <hr>
+  </div>
+</div>
+
+<script>
+var openInbox = document.getElementById("myBtn");
+openInbox.click();
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunc(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show"; 
+    x.previousElementSibling.className += " w3-red";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-red", "");
+  }
+}
+
+openMail("Borge")
+function openMail(personName) {
+  var i;
+  var x = document.getElementsByClassName("person");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x = document.getElementsByClassName("test");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" w3-light-grey", "");
+  }
+  document.getElementById(personName).style.display = "block";
+  event.currentTarget.className += " w3-light-grey";
+}
+</script>
+
+<script>
+var openTab = document.getElementById("firstTab");
+openTab.click();
+</script>
+
+</body>
+</html> 
