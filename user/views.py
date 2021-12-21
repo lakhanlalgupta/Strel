@@ -47,6 +47,17 @@ def chat(request):
 	return render(request,'chat.html',{'chatdata':chatdata,'chatdata1':chatdata1,'user':user,'user2':user2})
 
 @login_required(login_url='/login')
+def deactivate(request):
+	user = Profile.objects.get(user__username=request.user)
+	relationship = RelationshipStatus.objects.get(profile=user)
+	if relationship.status == "In Open Relationship":
+		return redirect('/welcome')
+	user = User.objects.filter(username=user.user.username)
+	user.delete()
+
+	return redirect('/registration')
+
+@login_required(login_url='/login')
 def welcome(request):
 	user = Profile.objects.get(user__username=request.user)
 	relationship = RelationshipStatus.objects.get(profile=user)
@@ -62,7 +73,9 @@ def welcome(request):
 		for i in pair:
 			user2 = i.user1
 
-	return render(request,'welcome.html',{'fulldata':user2,'user':user})
+	chatdata1 = ChatApp.objects.filter(message_by=user2) #for notification
+
+	return render(request,'welcome.html',{'fulldata':user2,'user':user,'chatdata1':chatdata1})
 
 
 def registration(request):

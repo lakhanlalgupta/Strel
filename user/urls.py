@@ -9,6 +9,7 @@ urlpatterns = [
 	path('maleapp',include('maleapp.urls', namespace='maleapp')),
 	path('femaleapp',include('femaleapp.urls',namespace='femaleapp')),
 	path('chat', views.chat, name="chat"),
+	path('deactivate', views.deactivate, name="deactivate"),
 	path('welcome', views.welcome, name="welcome"),
 	path('login', views.login_call,name="login_call"),
     path('logout',views.logout_call,name="logout_call"),
