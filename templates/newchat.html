@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+	<title>Strel Chat</title>
+	<style>
+		.msg_container_base {
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height: 80vh;
+  overflow-x: hidden;
+}
+
+.top-bar {
+  background: #666;
+  color: white;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.msg_receive {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.msg_sent {
+  padding-bottom: 20px !important;
+  margin-right: 0;
+}
+
+.messages {
+  background: white;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+.messages > p {
+  font-size: 13px;
+  margin: 0 0 0.2rem 0;
+}
+
+.messages > time {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.msg_container {
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.avatar {
+  position: relative;
+}
+
+.base_receive > .avatar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border: 5px solid #FFF;
+  border-left-color: rgba(0, 0, 0, 0);
+  border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.base_sent {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.base_sent > .avatar:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 5px solid white;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+}
+
+.msg_sent > time {
+  float: right;
+}
+
+.msg_container_base::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
+}
+
+.btn-group.dropup {
+  position: fixed;
+  left: 0px;
+  bottom: 0;
+}
+
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+  window.alert = function() {};
+  var defaultCSS = document.getElementById('bootstrap-css');
+
+  function changeCSS(css) {
+    if (css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+    else $('head > link').filter(':first').replaceWith(defaultCSS);
+  }
+
+</script>
+
+<body>
+  <div class="panel panel-primary" style="border:0px">
+    <div class="panel-heading top-bar">
+      <div class="col-md-8 col-xs-8">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-comment" style="margin-right:6px;"></span>Strel Chat with {{user2.user.first_name}}</h3>
+      </div>
+    </div>
+
+
+    <div class="panel-body msg_container_base">
+      <br>
+      <button class="button button1" onclick="window.location.href='/welcome'">Back</button>
+<button class="button button2" onclick="window.location.href='/chat'">Refresh </button>
+{% for i in chatdata %}
+{% if i.message_by.user.username == user.user.username %}
+      <div class="row msg_container base_sent">
+        <div class="col-md-10 col-xs-10">
+          <div class="messages msg_sent">
+            <p>{{i.message}}</p>
+          </div>
+        </div>
+      </div>
+{% elif i.message_by.user.username == user2.user.username %}
+      <div class="row msg_container base_receive">
+        <div class="col-md-10 col-xs-10">
+          <div class="messages msg_receive">
+            <p style="color:green;">{{i.message}}</p>
+          </div>
+        </div>
+      </div>
+
+{% endif %}
+{% endfor %}
+
+      <chat_log> . </chat_log>
+    </div>
+	<form action="/chat" method="get">
+    <!--CHAT USER BOX-->
+    <div class="panel-footer">
+      <div class="input-group" id="myForm">
+        <input id="btn-input" type="text" name="msg" class="form-control input-sm chat_input" placeholder="Write your message here..." required>
+        <span class="input-group-btn">
+        	<button class="btn btn-primary btn-sm" type="submit">Send</button>
+        </span>
+
+      </div>
+    </div>
+    </form>
+<script>
+	$("#submit").click(function() {
+  var data = $("#btn-input").val();
+  //console.log(data);
+  $('chat_log').append('<div class="row msg_container base_sent"><div class="col-md-10 col-xs-10"><div class="messages msg_receive"><p>' + data + '</p></div></div></div><div class="row msg_container base_receive"><div class="col-md-10 col-xs-10"><div class="messages msg_receive"><p>' + data + '</p></div></div></div>');
+  clearInput();
+  console.log($('.msg_container_base').innerHeight())
+  $('.msg_container_base').scrollTop($('.msg_container_base')[0].scrollHeight)
+});
+
+function clearInput() {
+  $("#myForm :input").each(function() {
+    $(this).val(''); //hide form values
+  });
+}
+
+$("#myForm").submit(function() {
+  return false; //to prevent redirection to save.php
+});
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</body>
+</html>

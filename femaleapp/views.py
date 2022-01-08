@@ -213,4 +213,4 @@ def superbreakup(request):
 	Accepted_data.delete()
 	Accepted_data = Accepted.objects.filter(user2=user)
 	Accepted_data.delete()
-	return redirect('/login')
+	return redirect('/femaleapp')

@@ -167,11 +167,9 @@ blink {
         {% endfor %}
         {% endif %}
         </div>
-<br>  {% if not chatdata1 %}
+<br>  
       <button class="button button0" onclick="window.location.href='/chat'">Chat</button><br>
-       {% else %}
-      <button class="button button0" onclick="window.location.href='/chat'">Chat(1)</button><br>
-      {% endif %}
+       
        {% if fulldata.gender == 'male' %}
 <button class="button button1" onclick="window.location.href='/femaleapp/brtomale/{{fulldata.id}}'">Break Up</button><br>
 <button class="button button2" onclick="window.location.href='/femaleapp/superbreakup'">Super Break Up</button>   

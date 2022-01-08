@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
-from .models import Profile, RelationshipStatus, Accepted, ChatApp
+from .models import Profile, RelationshipStatus, Accepted, NewChatApp
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -30,21 +30,19 @@ def chat(request):
 		pair = Accepted.objects.filter(user2=user)
 		for i in pair:
 			user2 = i.user1
-
-	chatdata = ChatApp.objects.filter(message_by=user)
-	chatdata1 = ChatApp.objects.filter(message_by=user2)
-	chatdata = chatdata.order_by('-id')
-	chatdata1 = chatdata1.order_by('-id')
+	for i in pair:
+		pair = i
+		break
+	print(user)
 	msg = request.GET.get('msg')
 	if msg:
-		oldchat = ChatApp.objects.filter(message_by=user)
-		oldchat.delete()
-		oldchat = ChatApp.objects.filter(message_to=user)
-		oldchat.delete()
-		chatapp = ChatApp(message_by= user,message_to=user2,content=msg)
-		chatapp.save()
+		chat = NewChatApp(couple= pair,message_by=user, message=msg)
+		chat.save()
 		return redirect('/chat')
-	return render(request,'chat.html',{'chatdata':chatdata,'chatdata1':chatdata1,'user':user,'user2':user2})
+	
+	chatdata = NewChatApp.objects.filter(couple=pair).order_by('-dated')
+	
+	return render(request,'newchat.html',{'chatdata':chatdata,'user2':user2,'user':user})
 
 @login_required(login_url='/login')
 def deactivate(request):
@@ -73,9 +71,8 @@ def welcome(request):
 		for i in pair:
 			user2 = i.user1
 
-	chatdata1 = ChatApp.objects.filter(message_by=user2) #for notification
 
-	return render(request,'welcome.html',{'fulldata':user2,'user':user,'chatdata1':chatdata1})
+	return render(request,'welcome.html',{'fulldata':user2,'user':user})
 
 
 def registration(request):

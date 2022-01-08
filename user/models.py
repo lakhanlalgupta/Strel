@@ -33,8 +33,9 @@ class BreakUp(models.Model):
 	status = models.CharField(max_length=20,default="breakup request")
 	dated=models.DateTimeField(auto_now_add=True)
 
-class ChatApp(models.Model):
-	message_by = models.ForeignKey(Profile, related_name='message_by',on_delete=models.CASCADE)
-	message_to = models.ForeignKey(Profile, related_name='message_to',on_delete=models.CASCADE)
-	content = models.CharField(max_length=10000)
-	dated=models.DateTimeField(auto_now_add=True)
+
+class NewChatApp(models.Model):
+	message_by = models.ForeignKey(Profile, related_name='messageby',on_delete=models.CASCADE)
+	couple = models.ForeignKey(Accepted, related_name='pair', on_delete=models.CASCADE)
+	message = models.CharField(max_length=10000)
+	dated = models.DateTimeField(auto_now_add=True)
